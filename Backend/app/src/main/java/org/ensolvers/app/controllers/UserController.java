@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping( "/")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
         if (result.hasErrors()) {
-            return validar(result);
+            return validate(result);
         }
         User userDb = userService.registerUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDb);
@@ -51,7 +51,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
         if (result.hasErrors()) {
-            return validar(result);
+            return validate(result);
         }
 
         Optional<User> o = userService.listUserById(id);
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         Optional<User> o = userService.listUserById(id);
         if (o.isPresent()) {
             userService.deleteUser(id);
@@ -75,7 +75,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    private static ResponseEntity<Map<String, String>> validar(BindingResult result) {
+    private static ResponseEntity<Map<String, String>> validate(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
         result.getFieldErrors().forEach(err -> errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errores);

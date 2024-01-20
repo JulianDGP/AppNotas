@@ -20,7 +20,6 @@ public class NotesServiceImpl implements NotesService {
 
     private final NotesRepository notesRepository;
     private final UserRepository userRepository;
-
     private final TagsRepository tagsRepository;
     @Autowired
     public NotesServiceImpl(NotesRepository notesRepository, UserRepository userRepository, TagsRepository tagsRepository) {

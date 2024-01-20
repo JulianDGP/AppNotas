@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Tags {
     private Long id;
 
     @NotEmpty
+    @Column(unique = true)
     private String name;
 
     @ManyToMany(mappedBy = "tags")
@@ -56,7 +58,4 @@ public class Tags {
         this.notes = notes;
     }
 
-/*    public void addNote(Notes note) {
-        this.notes.add(note);
-    }*/
 }

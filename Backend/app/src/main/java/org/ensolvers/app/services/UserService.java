@@ -1,7 +1,6 @@
 package org.ensolvers.app.services;
 
 import org.ensolvers.app.models.User;
-import org.ensolvers.app.models.dtos.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +16,6 @@ public interface UserService {
     User registerUser(User user);
 
     void deleteUser(Long id);
+    String findUser(String username, String password);
 
 }

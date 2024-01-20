@@ -41,7 +41,6 @@ public class NoteController {
         return ResponseEntity.notFound().build();
     }
 
-
     @GetMapping("/{userId}/notes/tags/{tagName}")
     public ResponseEntity<List<Notes>> getNotesByTagName(@PathVariable Long userId, @PathVariable String tagName) {
         List<Notes> notes = notesService.getNotesByTag(tagName);
@@ -59,7 +58,7 @@ public class NoteController {
     public ResponseEntity<?> createNote(@PathVariable Long userId,
                                         @Valid @RequestBody Notes note, BindingResult result){
         if(result.hasErrors()){
-            return validar(result);
+            return validate(result);
         }
 
         Notes noteDb = notesService.registerNote(userId,note);
@@ -71,7 +70,7 @@ public class NoteController {
     public ResponseEntity<?> updateNote(@PathVariable Long userId, @PathVariable Long id,
                                         @Valid @RequestBody Notes noteDetails, BindingResult result) {
         if (result.hasErrors()) {
-            return validar(result);
+            return validate(result);
         }
 
         Optional<Notes> noteFromDB = notesService.listNoteById(id);
@@ -104,9 +103,26 @@ public class NoteController {
         return ResponseEntity.notFound().build();
     }
 
-    private static ResponseEntity<Map<String, String>> validar(BindingResult result) {
+    private static ResponseEntity<Map<String, String>> validate(BindingResult result) {
         Map<String, String> errores = new HashMap<>();
         result.getFieldErrors().forEach(err -> errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errores);
     }
 }
+
+
+/*    @GetMapping("/{userId}/notes/{id}")
+    public ResponseEntity<?> getNoteById(@PathVariable Long userId, @PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = authentication.getName();
+
+        Optional<Notes> note = notesService.listNoteById(id);
+        if (note.isPresent()) {
+            if (note.get().getUser().getUserName().equals(loggedInUsername)) {
+                return ResponseEntity.ok(note.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Collections.singletonMap("error", "No tienes acceso a esta nota"));
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }*/
