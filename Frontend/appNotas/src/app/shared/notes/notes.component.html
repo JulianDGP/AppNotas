@@ -1,5 +1,13 @@
 <div class="container mt-5">
     <h1>These are the {{ user.userName }}'s Notes </h1>
+    <label for="tagSelect">Filter by tag:</label>
+    <select id="tagSelect" [(ngModel)]="selectedTag">
+        <option value="">All tags</option>
+        <option *ngFor="let tag of tags" [value]="tag.name">{{ tag.name }}</option>
+    </select>   
+     <button (click)="getNotesByTag(selectedTag)">Filter now!</button>
+<!--      <button (click)="clearFilter()">Clear filters</button>
+ -->     
     <div class="row">
         <div class="col-md-4" *ngFor="let note of notes">
             <div class="card mb-4">
@@ -7,7 +15,7 @@
                     <h2 class="card-title">{{ note.title }}</h2>
                     <p class="card-text">{{ note.content }}</p>
                 </div>
-                <div class="card-footer text-muted"> <small class="text-muted"> Etiquetas: <span
+                <div class="card-footer text-muted"> <small class="text-muted"> Tags: <span
                             *ngFor="let tag of note.tags; let i = index; let last = last;"> <a
                                 [ngClass]="getButtonColor(i)" class="btn btn-sm m-1" href=""
                                 > {{ tag.name }} </a> <span *ngIf="!last">, </span>

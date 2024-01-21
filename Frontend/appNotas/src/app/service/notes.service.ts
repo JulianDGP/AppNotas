@@ -13,4 +13,8 @@ export class NotesService {
   getNotes(userId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${userId}/notes`);
  }
+
+ getNotesByTag(userId: number, tagName: string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/${userId}/notes/tags/${tagName}`);
+}
 }

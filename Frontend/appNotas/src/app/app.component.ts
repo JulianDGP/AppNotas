@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CurrentUserService } from './service/current-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { CurrentUserService } from './service/current-user.service';
 export class AppComponent {
   isLoggedIn: boolean=false;
 
-  constructor(private currentUserService: CurrentUserService) { }
+  constructor(private currentUserService: CurrentUserService, private router: Router) { }
  
   ngOnInit(): void {
      this.currentUserService.isLoggedIn.subscribe(
@@ -17,4 +18,12 @@ export class AppComponent {
          this.isLoggedIn = loggedIn;
        }
      );
-  }}
+
+     this.currentUserService.logoutEvent.subscribe(() => {
+      this.router.navigate(['/login']);
+    });
+  }
+  logout(): void {
+    this.currentUserService.logout();
+  }
+}
