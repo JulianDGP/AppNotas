@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -23,11 +26,23 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String password) {
         String result = userService.findUser(username, password);
+        Map<String, String> response = new HashMap<>();
+
+        if (result.equals("Login successful")) {
+            response.put("message", "Login successful");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+
+        /*String result = userService.findUser(username, password);
         if (result.equals("Login successful")) {
             return ResponseEntity.ok().body(result);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
-        }
+        }*/
     }
 
 }
