@@ -7,13 +7,15 @@ import { LoginComponent } from './shared/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './shared/home/home.component';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { NotesComponent } from './shared/notes/notes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    NavBarComponent
+    NavBarComponent,
+    NotesComponent
   ],
   imports: [
     HttpClientModule,

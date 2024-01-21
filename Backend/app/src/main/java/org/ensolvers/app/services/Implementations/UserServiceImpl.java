@@ -46,13 +46,13 @@ public class UserServiceImpl implements UserService{
         userRepository.deleteById(id);
     }
 
-    public String findUser(String username, String password) {
+    public Optional<User> findUser(String username, String password) {
         User user = userRepository.findUserByUserName(username);
 
         if (user != null && user.getPassword().equals(password)) {
-            return "Login successful";
+            return Optional.of(user);
         } else {
-            return "Invalid username or password";
+            return Optional.empty();
         }
     }
 

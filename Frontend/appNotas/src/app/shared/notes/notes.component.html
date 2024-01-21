@@ -1,0 +1,19 @@
+<div class="container mt-5">
+    <h1>These are the {{ user.userName }}'s Notes </h1>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let note of notes">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ note.title }}</h2>
+                    <p class="card-text">{{ note.content }}</p>
+                </div>
+                <div class="card-footer text-muted"> <small class="text-muted"> Etiquetas: <span
+                            *ngFor="let tag of note.tags; let i = index; let last = last;"> <a
+                                [ngClass]="getButtonColor(i)" class="btn btn-sm m-1" href=""
+                                > {{ tag.name }} </a> <span *ngIf="!last">, </span>
+                                <!-- (click)="redirectToTagPage(tag.name)" -->
+                        </span> </small> </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,6 @@ public interface UserService {
     User registerUser(User user);
 
     void deleteUser(Long id);
-    String findUser(String username, String password);
+    Optional<User> findUser(String username, String password);
 
 }

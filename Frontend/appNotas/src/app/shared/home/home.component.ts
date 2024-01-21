@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CurrentUserService } from 'src/app/service/current-user.service';
 import { LoginService } from 'src/app/service/login.service';
 
 @Component({
@@ -6,10 +7,12 @@ import { LoginService } from 'src/app/service/login.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  username: string = '';
+export class HomeComponent implements OnInit{
+  user: any;
 
-  constructor(private loginService: LoginService) {    
-    this.username = this.loginService.getUsername();
+  constructor(private currentUserService: CurrentUserService) { }
+ 
+  ngOnInit(): void {
+    this.user = this.currentUserService.getUser();
   }
 }

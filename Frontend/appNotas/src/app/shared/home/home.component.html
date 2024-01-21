@@ -1,1 +1,5 @@
-<app-nav-bar></app-nav-bar>
+<div class="container mt-5">
+    <h1 *ngIf="user">Welcome, {{ user.name }}!</h1>
+    <p *ngIf="user">Your username is: {{ user.userName }}</p>
+    <!-- Agrega más campos del usuario según sea necesario -->
+</div>
