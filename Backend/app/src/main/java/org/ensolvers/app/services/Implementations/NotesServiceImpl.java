@@ -31,8 +31,12 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Notes> listAllNotesByUser(Long userId) {
-        return notesRepository.findByUserId(userId);
+    public List<Notes> listAllNotesByUser(Long userId, boolean includeArchived) {
+        if (includeArchived) {
+            return notesRepository.findByUserIdAndArchived(userId,true);
+        } else {
+            return notesRepository.findByUserIdAndArchived(userId, false);
+        }
     }
 
     @Override
@@ -78,7 +82,13 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     @Transactional
-    public List<Notes> getNotesByTag(String tagName) {
-        return notesRepository.findByTags_Name(tagName);
+    public List<Notes> getNotesByTag(String tagName,boolean includeArchived) {
+        if (includeArchived){
+            return notesRepository.findByTagAndArchive(tagName, true);
+        }else{
+            return notesRepository.findByTagAndArchive(tagName, false);
+        }
+
+
     }
 }

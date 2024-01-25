@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +38,12 @@ public class TagController {
         if (result.hasErrors()) {
             return validate(result);
         }
+        Optional<Tags> existingTag = tagsRepository.findByName(tag.getName());
+
+        if(existingTag.isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap("error", "The tag already exists in the database"));
+        }
+
         Tags tagDb = tagsService.registerTag(tag);
         return ResponseEntity.status(HttpStatus.CREATED).body(tagDb);
     }

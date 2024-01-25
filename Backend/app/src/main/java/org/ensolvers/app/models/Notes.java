@@ -16,6 +16,8 @@ public class Notes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private boolean archived =false;
+
     @NotEmpty
     private String title;
 
@@ -33,8 +35,9 @@ public class Notes {
     public Notes() {
     }
 
-    public Notes(Long id, String title, String content, User user, List<Tags> tags) {
+    public Notes(Long id, boolean archived, String title, String content, User user, List<Tags> tags) {
         this.id = id;
+        this.archived = archived;
         this.title = title;
         this.content = content;
         this.user = user;
@@ -47,6 +50,14 @@ public class Notes {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public String getTitle() {

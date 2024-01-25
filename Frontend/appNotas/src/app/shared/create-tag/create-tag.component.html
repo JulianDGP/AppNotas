@@ -1,11 +1,11 @@
-<!-- <p>create-tag works!</p>
-<div class="container">
-    <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="title">Title: </label>
-            <input type="text" id="title" formControlName="title">
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!noteForm.valid">Create Tag</button>
-    </form>
+<!-- create-tag.component.html -->
+<div class="container mt-5">
+  <h1>Crear nueva etiqueta</h1>
+  <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input formControlName="name" id="name" type="text" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!tagForm.valid">Crear Tag!</button>
+  </form>
 </div>
- -->

@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public interface NotesService {
 
-    List<Notes> listAllNotesByUser(Long userId);
+    List<Notes> listAllNotesByUser(Long userId, boolean includeArchived);
 
     Optional<Notes> listNoteById(Long noteId);
 
@@ -17,6 +17,6 @@ public interface NotesService {
 
     void deleteNotes(Long id);
 
-    List<Notes> getNotesByTag(String tagName);
+    List<Notes> getNotesByTag(String tagName,boolean includeArchived);
 
 }

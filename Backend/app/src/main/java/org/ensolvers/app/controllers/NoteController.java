@@ -25,8 +25,10 @@ public class NoteController {
 
 
     @GetMapping("/{userId}/notes")
-    public ResponseEntity<List<Notes>> listAllNotesForUser(@PathVariable Long userId){
-        return ResponseEntity.ok(notesService.listAllNotesByUser(userId));
+    public ResponseEntity<List<Notes>> listAllNotesForUser(@PathVariable Long userId,
+                                                           @RequestParam(required = false, defaultValue = "false")
+                                                           boolean includeArchived){
+        return ResponseEntity.ok(notesService.listAllNotesByUser(userId,includeArchived));
     }
 
     @GetMapping("/{userId}/notes/{id}")
@@ -43,8 +45,12 @@ public class NoteController {
     }
 
     @GetMapping("/{userId}/notes/tags/{tagName}")
-    public ResponseEntity<List<Notes>> getNotesByTagName(@PathVariable Long userId, @PathVariable String tagName) {
-        List<Notes> notes = notesService.getNotesByTag(tagName);
+    public ResponseEntity<List<Notes>> getNotesByTagName(@PathVariable Long userId, @PathVariable String tagName,
+                                                        @RequestParam(required = false, defaultValue = "false")
+                                                        boolean includeArchived) {
+
+
+        List<Notes> notes = notesService.getNotesByTag(tagName, includeArchived);
 
         // Filtra las notas para solo incluir aquellas que pertenecen al usuario
         List<Notes> filteredNotes = notes.stream()
@@ -89,6 +95,23 @@ public class NoteController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PutMapping("/{userId}/notes/{id}/archive")
+    public ResponseEntity<?> archiveNote(@PathVariable Long userId, @PathVariable Long id, @RequestParam boolean archive) {
+        Optional<Notes> noteFromDB = notesService.listNoteById(id);
+        if (noteFromDB.isPresent()) {
+            if (noteFromDB.get().getUser().getId().equals(userId)) {
+                Notes note = noteFromDB.get();
+                note.setArchived(archive);
+                notesService.registerNote(userId, note);
+                return ResponseEntity.ok(note);
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Collections.singletonMap("error", "No tienes acceso para archivar esta nota"));
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 
     @DeleteMapping("/{userId}/notes/{id}")
     public ResponseEntity<?> deleteNote(@PathVariable Long userId, @PathVariable Long id) {

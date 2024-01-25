@@ -7,6 +7,8 @@ import { AuthGuard } from './guards/AuthGuard';
 import { CreateNoteComponent } from './shared/create-note/create-note.component';
 import { EditNoteComponent } from './shared/edit-note/edit-note.component';
 import { DeleteNoteComponent } from './shared/delete-note/delete-note.component';
+import { CreateTagComponent } from './shared/create-tag/create-tag.component';
+import { ArchivedComponent } from './shared/archived/archived.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,7 +17,10 @@ const routes: Routes = [
   { path: 'notes', component: NotesComponent, canActivate: [AuthGuard] },
   { path: 'create-note', component: CreateNoteComponent },
   { path: 'edit-note', component: EditNoteComponent },
-  { path: 'delete-note', component: DeleteNoteComponent }
+  { path: 'delete-note', component: DeleteNoteComponent },
+  { path: 'create-tag', component: CreateTagComponent },
+  { path: 'archived', component: ArchivedComponent }
+
 ];
 
 @NgModule({

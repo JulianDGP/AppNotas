@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DeleteNoteComponent } from './shared/delete-note/delete-note.component';
+import { ArchivedComponent } from './shared/archived/archived.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DeleteNoteComponent } from './shared/delete-note/delete-note.component'
     CreateNoteComponent,
     EditNoteComponent,
     CreateTagComponent,
-    DeleteNoteComponent
+    DeleteNoteComponent,
+    ArchivedComponent
   ],
   imports: [
     HttpClientModule,

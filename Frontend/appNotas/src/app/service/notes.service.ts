@@ -33,7 +33,10 @@ export class NotesService {
 
   deleteNote(userId: number, noteId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${userId}/notes/${noteId}`);
-}
+  }
 
+  getArchivedNotes(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${userId}/notes?includeArchived=true`);
+  }
 
 }
