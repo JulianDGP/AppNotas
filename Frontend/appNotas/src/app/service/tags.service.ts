@@ -12,4 +12,8 @@ export class TagsService {
   getAllTags(): Observable<any> {
     return this.http.get(`${this.baseUrl}/tags`);
  }
+
+ createTag(tagName: string): Observable<any> {
+  return this.http.post(`${this.baseUrl}/tags`, { name: tagName });
+ }
 }

@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';  
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,9 @@ import { Observable, map } from 'rxjs';
 export class LoginService {
   private baseUrl = 'http://localhost:8001';
   public loginEvent = new EventEmitter<void>();
- constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
- login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -27,5 +27,5 @@ export class LoginService {
         return user;
       })
     );
- }
+  }
 }

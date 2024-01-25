@@ -27,9 +27,10 @@ export class NotesComponent implements OnInit {
  }
 
  getNotesByTag(tagName: string): void {
-    this.user = this.currentUserService.getUser();
-    const userId = this.user.id;
-    if (userId > 0) {
+  this.user = this.currentUserService.getUser();
+  const userId = this.user.id;
+  if (userId > 0) {
+    if (tagName !== '') {
       this.notesService.getNotesByTag(userId, tagName).subscribe(
         (response: Note[]) => {
           this.notes = response;
@@ -38,8 +39,21 @@ export class NotesComponent implements OnInit {
           console.error('Error al obtener las notas:', error);
         }
       );
+    } else {
+      this.notesService.getNotes(userId).subscribe(
+        (response: Note[]) => {
+          this.notes = response;
+        },
+        (error) => {
+          console.error('Error al obtener las notas:', error);
+        }
+      );
     }
- }
+  }
+}
+
+
+ 
 
  ngOnInit(): void {
     this.tagsService.getAllTags().subscribe(
