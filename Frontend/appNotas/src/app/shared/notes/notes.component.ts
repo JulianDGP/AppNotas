@@ -78,4 +78,21 @@ export class NotesComponent implements OnInit {
       );
     }
  }
+
+ archiveNote(noteId: number, archive: boolean): void {
+  this.notesService.archiveNote(this.user.id, noteId, archive).subscribe(
+     (response: Note) => {
+       // Actualiza la nota en la lista de notas
+       const index = this.notes.findIndex(note => note.id === noteId);
+       if (index !== -1) {
+         this.notes[index] = response;
+       }
+     },
+     (error) => {
+       console.error('Error al cambiar el estado de archivado:', error);
+     }
+  );
+ }
+ 
+
 }

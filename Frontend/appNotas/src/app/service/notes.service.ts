@@ -39,4 +39,10 @@ export class NotesService {
     return this.http.get(`${this.baseUrl}/${userId}/notes?includeArchived=true`);
   }
 
+  archiveNote(userId: number, noteId: number, archive: boolean): Observable<any> {
+    const params = new HttpParams().set('archive', String(archive));
+    return this.http.put(`${this.baseUrl}/${userId}/notes/${noteId}/archive`, {}, { params });
+   }
+   
+
 }

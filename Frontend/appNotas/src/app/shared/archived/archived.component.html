@@ -16,6 +16,7 @@
                           > {{ tag.name }} </a> <span *ngIf="!last">, </span>
                           <!-- (click)="redirectToTagPage(tag.name)" -->
                   </span> </small> </div>
+                  <button (click)="archiveNote(note.id, false)">Desarchivar</button>
       </div>
        </div>
     </div>

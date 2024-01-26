@@ -86,8 +86,8 @@ public class NoteController {
                 Notes note = noteFromDB.get();
                 note.setTitle(noteDetails.getTitle());
                 note.setContent(noteDetails.getContent());
-                //note.setTags(noteDetails.getTags());
-                notesService.registerNote(userId, note);
+                note.setTags(noteDetails.getTags());
+                //notesService.registerNote(userId, note);
                 return ResponseEntity.ok(note);
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Collections.singletonMap("error", "No tienes acceso para editar esta nota"));
